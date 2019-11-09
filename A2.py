@@ -77,7 +77,7 @@ def AC3_A_BITCH(csp):
     #GET NEIGHBORS - call function
     while not q.empty():
         (Xi, Xj) = q.get()
-        if(Revise(csp,Xi,Xj)):
+        if(revision(csp,Xi,Xj)):
             if(len(csp.values[Xi]) == 0):
                 return False
             for Xk in getNeighbors(csp,Xi,Xj):  #<-- do the function thing
@@ -107,20 +107,6 @@ def revision(csp, Xi, Xj):
             i += 1
     return isRevised
 
-def Revise(csp,Xi,Xj):
-    revised = False
-    values = set(csp.values[Xi])
-    for x in values:
-        if not isconsistent(csp,x,Xi,Xj):
-            csp.values[Xi] = csp.values[Xi].replace(x, '')
-            revised = True
-    return revised
-
-def isconsistent(csp, x, Xi, Xj):
-    for y in csp.values[Xj]:
-        if Xj in csp.neighbors[Xi] and y!=x:
-            return True
-    return False
 
 def printAHoe(csp):
     for x in range(81):
